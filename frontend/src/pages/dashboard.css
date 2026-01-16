@@ -1,0 +1,124 @@
+/* Sets up the overall page to take up the full screen */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full viewport height */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* ---------- HEADER STYLES ---------- */
+.header {
+  display: flex;
+  justify-content: space-between; /* Pushes left and right sections apart */
+  align-items: center;
+  background-color: #000;
+  color: #fff;
+  padding: 1rem 2.5rem;
+}
+
+.header-left,
+.header-right,
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem; /* Space between items */
+}
+
+.logo {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.nav-button {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.signup-button {
+  background-color: #fff;
+  color: #000;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* ---------- MAIN CONTENT STYLES ---------- */
+.main-content {
+  display: flex;
+  flex-grow: 1; /* Makes the main content fill the remaining height */
+}
+
+/* Left Panel */
+.left-panel {
+  flex-basis: 50%; /* Takes up 50% of the width */
+  padding: 8rem 6rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.left-panel h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin: 0;
+  margin-bottom: 4rem;
+  max-width: 450px;
+  line-height: 1.2;
+}
+
+.login-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  color: #000;
+  border-bottom: 2px solid #eeeeee;
+  padding: 2rem 0;
+  transition: color 0.2s ease;
+}
+
+.login-option:hover {
+  color: #555; /* Slight hover effect */
+}
+
+.login-option h2 {
+  font-size: 2.25rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.arrow-icon {
+  font-size: 2rem;
+}
+
+/* Right Panel */
+.right-panel {
+  flex-basis: 50%; /* Takes up 50% of the width */
+  background-color: #f7f7f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Hides any part of the image that's too big */
+}
+
+.illustration {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Covers the area, scaling as needed */
+}

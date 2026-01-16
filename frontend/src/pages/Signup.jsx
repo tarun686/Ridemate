@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import "./Signup.css";
-
+import mymap from "../assets/images/gof2.gif"
 export default function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -25,13 +25,17 @@ export default function Signup() {
   return (
     <div className="signup-container">
       <div className="signup-left">
-       
+       <img
+          src={mymap}
+          alt="Login Illustration"
+          className="login-illustration"
+        />
       </div>
 
       <div className="signup-right">
         <div className="form-box">
           <h2 className="title">Create Account</h2>
-          <p className="subtitle">Join RideMate and share your wheeeels 🛞</p>
+          <p className="subtitle">Made For GEU Students, Powered By GEU Students.</p>
 
           <form onSubmit={handleSignup} className="signup-form">
             <input

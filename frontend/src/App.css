@@ -1,6 +1,9 @@
+*{
+  box-sizing:border-box;
+}
 body {
   margin: 0;
-  font-family: "Inter", sans-serif;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   background-color: #fff;
   color: #111;
 }
@@ -30,18 +33,23 @@ body {
 }
 
 .title {
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-weight: 800;
-  letter-spacing: 1px;
+  margin-bottom: 10px;
+  color: #7b542f;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-.subtitle {
-  color: #555;
-  margin-top: 10px;
-  font-size: 1.1rem;
-  margin-bottom: 40px;
+.tagline {
+  font-size: 1.4rem;
+  color: #7b542f;
+  font-weight: 300;
 }
 
+.tagline span {
+  color: #b6771d;
+  font-weight: 600;
+}
 .buttons {
   display: flex;
   justify-content: center;
@@ -57,17 +65,74 @@ body {
 }
 
 .btn-primary {
-  background-color: #000;
-  color: #fff;
+  background-color: #b6771d;
+  color: white;
+  font-weight: 300;
 }
 
 .btn-outline {
-  border: 2px solid #000;
-  color: #000;
+  border: 2px solid #b6771d;
+  color: black;
   background-color: transparent;
+  font-weight: 300;
 }
 
 .btn:hover {
   scale: 0.8;
   opacity: 0.85;
+}
+.about-section {
+  width: 100%;
+  padding: 80px 10%;
+  background-color: #f8f4ef;
+  display: flex;
+  gap: 40px;
+  justify-content: space-between;
+  align-items: center;
+  margin-top:100px;
+}
+.title1{
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-weight: 600;
+  color:#7b542f;
+  margin:5px;
+  font-size: 3.3rem;
+}
+.about-content {
+  flex:1;
+}
+.about-content p {
+  font-size: 1.5rem;
+  color: #444;
+  line-height: 1.7rem;
+  margin-bottom: 15px;
+  margin-top:40px;
+}
+.bold-line {
+  border: none;
+  height: 4px;   /* thickness */
+  background-color: #b6771d;  /* color */
+  width: 20%;    /* adjust width as needed */
+  margin: 2px;
+  border-radius: 2px;
+}
+
+.about-images {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  height:500px;
+}
+
+.about-images img {
+  width: 45%;
+  border-radius: 15px;
+  object-fit: cover;
+}
+.imagegif{
+  width:100%;
+  height:300px;
+  object-fit:cover;
 }
