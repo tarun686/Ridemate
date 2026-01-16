@@ -1,8 +1,15 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 export default function Login() {
+
+
+  const navigate = useNavigate();
+
+
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -16,6 +23,7 @@ export default function Login() {
       });
       setMessage(res.data.message);
       localStorage.setItem("token", res.data.token);
+      navigate("/dashboard");
     } catch (err) {
       setMessage("Login failed ❌");
     }
