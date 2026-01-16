@@ -2,7 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
-
+import myimage from "../assets/images/gof.gif";
+import Dashboard from "./dashboard";
 export default function Login() {
 
 
@@ -13,7 +14,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-
+  const navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -23,9 +24,11 @@ export default function Login() {
       });
       setMessage(res.data.message);
       localStorage.setItem("token", res.data.token);
-      navigate("/dashboard");
+      setTimeout(() => {
+        navigate("/dashboard");  
+      }, 800);
     } catch (err) {
-      setMessage("Login failed ❌");
+      setMessage("Login failed");
     }
   };
 
@@ -33,7 +36,7 @@ export default function Login() {
     <div className="login-container">
       <div className="login-left">
         <img
-          src="/images/login-illustration.svg"
+          src={myimage}
           alt="Login Illustration"
           className="login-illustration"
         />

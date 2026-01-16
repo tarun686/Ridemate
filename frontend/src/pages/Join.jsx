@@ -9,4 +9,13 @@ import {
   Check,
   MapPin
 } from 'lucide-react';
+const Join=()=>
+{
+return(
+    <div>
+        <Navbar/>
+        
+    </div>
+);
+};
 export default Join;
