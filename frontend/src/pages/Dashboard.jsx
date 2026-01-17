@@ -1,58 +1,52 @@
-import React from 'react';
-import './dashboard.css';
-const DashBoard = () => {
+import { Link } from "react-router-dom";
+import NavBar from "../components/NavBar";
+import "./Dashboard.css";
+
+const Dashboard = () => {
   return (
-    <div className="page-container">
-      {/* ---------- HEADER / NAVBAR ---------- */}
-      <header className="header">
-        <div className="header-left">
-          <div className="logo">Uber</div>
-          <nav className="nav-links">
-            <a href="#">Ride</a>
-            <a href="#">Drive</a>
-            <a href="#">Business</a>
-            <a href="#">Uber Eats</a>
-            <a href="#">About</a>
-          </nav>
-        </div>
-        <div className="header-right">
-          <button className="nav-button">
-            <FaGlobe /> EN
-          </button>
-          <button className="nav-button">Help</button>
-          <button className="nav-button">Log in</button>
-          <button className="signup-button">Sign up</button>
-        </div>
-      </header>
+    <>
+      <NavBar />
 
-      {/* ---------- MAIN CONTENT (SPLIT SCREEN) ---------- */}
-      <main className="main-content">
-        {/* Left Panel */}
-        <div className="left-panel">
-          <h1>Log in to access your account</h1>
+      <section className="dashboard-hero">
+        <div>IMAGE</div>
+        <h1 className="dashboard-title">Welcome to RideMate</h1>
+        <p className="dashboard-subtitle">
+          Your campus carpool companion.
+        </p>
 
-          <a href="#" className="login-option">
-            <h2>Rider</h2>
-            <FaArrowRight className="arrow-icon" />
-          </a>
-
-          <a href="#" className="login-option">
-            <h2>Driver</h2>
-            <FaArrowRight className="arrow-icon" />
-          </a>
+        <div className="dashboard-buttons">
+          <Link to="/join-ride" className="dash-btn">
+            Join Ride
+          </Link>
+          <Link to="/create-ride" className="dash-btn outline">
+            Create Ride
+          </Link>
         </div>
+      </section>
 
-        {/* Right Panel */}
-        <div className="right-panel">
-          <img
-            src="https://d1a3f4spmetaargv.cloudfront.net/static/sign-in-image-desktop-v1-32531DE.svg"
-            alt="Car on a road"
-            className="illustration"
-          />
-        </div>
-      </main>
-    </div>
+      {/* ABOUT US */}
+      <section className="about-section">
+        <h2>About Us</h2>
+        <p>
+          RideMate is a university-exclusive ride sharing platform designed
+          to connect students travelling on similar routes.  
+          Our goal is to make commuting <strong>affordable, safe, and eco-friendly</strong>
+          for everyone on campus.
+        </p>
+      </section>
+
+      {/* CONTACT US */}
+      <section className="contact-section">
+        <h2>Contact Us</h2>
+        <form className="contact-form">
+          <input type="text" placeholder="Your Name" required />
+          <input type="email" placeholder="Your Email" required />
+          <textarea placeholder="Your Message" required />
+          <button type="submit">Send Message</button>
+        </form>
+      </section>
+    </>
   );
 };
 
-export default DashBoard;
+export default Dashboard;

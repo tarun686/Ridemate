@@ -3,18 +3,16 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import myimage from "../assets/images/gof.gif";
-import Dashboard from "./dashboard";
 export default function Login() {
 
 
-  const navigate = useNavigate();
+const navigate = useNavigate();
 
 
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -24,9 +22,7 @@ export default function Login() {
       });
       setMessage(res.data.message);
       localStorage.setItem("token", res.data.token);
-      setTimeout(() => {
-        navigate("/dashboard");  
-      }, 800);
+        navigate("./dashboard");  
     } catch (err) {
       setMessage("Login failed");
     }
@@ -45,7 +41,7 @@ export default function Login() {
       <div className="login-right">
         <div className="form-box">
           <h2 className="title">Welcome Back</h2>
-          <p className="subtitle">Login to continue your RideMate journey.</p>
+          <p className="subtitle">Login and Share your WHEEELS.</p>
 
           <form onSubmit={handleLogin} className="login-form">
             <input

@@ -1,44 +1,46 @@
 import { Link, BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Dashboard from "./pages/Dashboard";
+import NavBar from "./components/NavBar";
+
 import "./App.css";
 import heroImage from "./assets/images/bg.png";
 import image1 from "./assets/images/boy.jpg";
 import image2 from "./assets/images/map.jpg";
-import image3 from "./assets/images/carani.gif"
+import image3 from "./assets/images/carani.gif";
+
 function Home() {
   return (
     <>
-    <NavBar />
-    <div className="landing-container">
-      <div className="hero-section">
-      <img src={heroImage} alt="RideMate banner" className="hero-image" />
-      </div>
+      <NavBar />
 
-      <div className="content">
-        <h1 className="title">RIDEMATE</h1>
-        <p className="tagline">Connecting <span>GEU</span> — one ride at a time.</p>
+      <div className="landing-container">
+        <div className="hero-section">
+          <img src={heroImage} alt="RideMate banner" className="hero-image" />
+        </div>
 
-        <div className="buttons">
-          <Link to="/signup" className="btn btn-primary">
-            SignUp
-          </Link>
-          <Link to="/login" className="btn btn-outline">
-            Login
-          </Link>
+        <div className="content">
+          <h1 className="title">RIDEMATE</h1>
+          <p className="tagline">
+            Connecting <span>GEU</span> — one ride at a time.
+          </p>
+
+          <div className="buttons">
+            <Link to="/signup" className="btn btn-primary">SignUp</Link>
+            <Link to="/login" className="btn btn-outline">Login</Link>
+          </div>
         </div>
       </div>
-    </div>
-    <section className="about-section" id="about">
+
+      <section className="about-section">
         <div className="about-content">
           <div className="title1">Sharing Rides,</div>
           <div className="title1">Sharing Stories</div>
-          <hr class="bold-line" />
+          <hr className="bold-line" />
           <p className="subTitle">
             RideMate is a campus-exclusive ride-sharing platform designed for 
-            students of <strong>Graphic Era University</strong>.  
-            We connect riders and drivers within the GEU community to make daily
-            travel safer, cheaper, and faster.
+            students of <strong>Graphic Era University</strong>.
           </p>
         </div>
 
@@ -51,6 +53,7 @@ function Home() {
     </>
   );
 }
+
 function App() {
   return (
     <BrowserRouter>
@@ -58,6 +61,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );
