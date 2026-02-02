@@ -1,0 +1,164 @@
+.ride-navbar {
+  height: 64px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 35px;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+}
+
+.ride-logo {
+  color: #bb7c23;
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+.ride-logo:hover {
+  text-shadow: 0 0 10px rgba(196,122,28,0.8);
+}
+.ride-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.nav-icon{
+    padding-right:5px;
+}
+.activity-btn {
+  background: rgba(0,0,0,0.6);
+  color: #f5deb3;
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 8px 18px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: 0.3s;
+  border:2px solid #c47a1c;
+}
+.activity-btn:hover {
+  background: #c47a1c;
+  color: black;
+}
+
+/* PROFILE */
+.profile-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  position: relative;
+}
+
+.profile-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.6);
+  border: 2px solid #c47a1c;
+  color: #f5deb3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+/* DROPDOWN ICON */
+.dropdown-icon {
+  transition: 0.3s;
+}
+
+.dropdown-icon.rotate {
+  transform: rotate(180deg);
+}
+.ride-dropdown {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  width: 300px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.ride-user {
+  display: flex;
+  align-items:flex-start;
+  gap:50px;
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+
+}
+.rating{
+  width:fit-content;
+  border-radius:24px;
+  background-color:black;
+  color:white;
+  padding:4px 8px;
+}
+.avatar-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #f2f2f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ride-panels{
+  display:flex;
+  gap:8px;
+}
+.icon-one{
+  font-size:25px;
+}
+.ride-panels div{
+  width:84px;
+  height:80px;
+  background-color:rgb(177, 173, 173);
+  border-radius:20px;
+  padding:20px 24px;
+  margin-left:8px;
+  font-weight:500;
+}
+.rideline{
+  width:300px;
+  height:5px;
+  background-color:rgb(211, 203, 203);
+  border-radius:10px;
+  margin-top:10px;
+}
+.ride-menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.ride-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight:600;
+}
+
+.ride-item:hover {
+  background: #f5f5f5;
+}
+
+.logout {
+  color: #d32f2f;
+  margin-left:80px;
+}

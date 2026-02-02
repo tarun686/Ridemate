@@ -92,10 +92,10 @@ body {
 }
 .title1{
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-weight: 600;
+  font-weight: 300;
   color:#7b542f;
   margin:5px;
-  font-size: 3.3rem;
+  font-size: 3.0rem;
 }
 .about-content {
   flex:1;
@@ -109,10 +109,10 @@ body {
 }
 .bold-line {
   border: none;
-  height: 4px;   /* thickness */
-  background-color: #b6771d;  /* color */
-  width: 20%;    /* adjust width as needed */
-  margin: 2px;
+  height: 4px;
+  background-color: #b6771d;
+  width: 100%;
+  margin-top:10px;
   border-radius: 2px;
 }
 
