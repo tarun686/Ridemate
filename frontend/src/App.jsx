@@ -3,7 +3,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import NavBar from "./components/NavBar";
-
+import Create from "./pages/Create"
 import "./App.css";
 import heroImage from "./assets/images/bg.png";
 import image1 from "./assets/images/boy.jpg";
@@ -62,6 +62,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/create" element={<Create />} />
+         
       </Routes>
     </BrowserRouter>
   );

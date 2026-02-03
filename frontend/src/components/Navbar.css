@@ -22,7 +22,7 @@
 .nav-links {
   display: flex;
   list-style: none;
-  gap: 35px;
+  gap: 15px;
   color:black;
   padding-right:30px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

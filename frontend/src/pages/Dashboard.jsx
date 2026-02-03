@@ -18,7 +18,7 @@ const Dashboard = () => {
           <Link to="/join-ride" className="dash-btn">
             Join Ride
           </Link>
-          <Link to="/create-ride" className="dash-btn outline">
+          <Link to="/create" className="dash-btn outline">
             Create Ride
           </Link>
         </div>

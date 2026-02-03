@@ -22,7 +22,7 @@ const navigate = useNavigate();
       });
       setMessage(res.data.message);
       localStorage.setItem("token", res.data.token);
-        navigate("./dashboard");  
+        navigate("/dashboard");  
     } catch (err) {
       setMessage("Login failed");
     }
