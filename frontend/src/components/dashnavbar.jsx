@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "./dashnavbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,7 +7,13 @@ import { faBars, faUser,faClock, faGear, faRightFromBracket,faStar,faCircleInfo,
 
 export default function DashNavbar() {
   const [open, setOpen] = useState(false);
-
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
+  const handleLogout = () => {
+    localStorage.clear();        
+    setOpen(false);                
+    navigate("/login");            
+  };
   return (
     <nav className="ride-navbar">
       <div className="left">
@@ -29,7 +36,7 @@ export default function DashNavbar() {
             <div className="ride-dropdown">
               <div className="ride-user">
                 <div>
-                  <h2>Muskan Ahuja</h2>
+                  <h2>{user?.name}</h2>
                   <div className="rating"><span><FontAwesomeIcon icon={faStar} />  5</span></div>
                 </div>
                 <div className="avatar-circle">
@@ -58,7 +65,7 @@ export default function DashNavbar() {
                   <span>Settings</span>
                 </div>
 
-                <div className="ride-item logout">
+                <div className="ride-item logout" onClick={handleLogout}>
                   <FontAwesomeIcon icon={faRightFromBracket} />
                   <span>Logout</span>
                 </div>

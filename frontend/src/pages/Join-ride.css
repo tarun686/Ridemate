@@ -1,0 +1,122 @@
+.joinride-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+.nav{
+  display: flex;
+  align-items: center;
+  justify-content:space-between;
+  position: relative;
+  margin:0;
+}
+.nav h3{
+  color:#e69b00;
+}
+.canva-logo{
+    margin:0;
+    height:80px;
+    width:80px;
+    object-fit: cover;
+    border-radius:5px;
+}
+.menu-btn {
+  font-size: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.joinride-left {
+  width: 35%;
+  padding: 15px;
+  background-color: #ffffff;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.joinride-left h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+.input-group {
+  position: relative;
+}
+.input-icon {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  color: black;
+  font-size: 16px;
+  pointer-events: none;
+}
+
+.joinride-left input,
+.joinride-left select {
+  padding: 12px 12px 12px 42px;
+  font-size: 15px;
+  border-radius: 6px;
+  border: 2px solid #ccc;
+  outline: none;
+  width:100%;
+}
+
+.joinride-left input:focus,
+.joinride-left select:focus {
+  border-color: #000;
+}
+
+.search-btn {
+  margin-top: 10px;
+  padding: 14px;
+  background-color: #000;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.search-btn:hover {
+  background-color: #222;
+}
+.input-icon.green { color: #22c55e; }
+.input-icon.red { color: #ef4444; }
+
+.joinride-right {
+  width: 65%;
+  height: 100%;
+}
+
+.map {
+  height: 100%;
+  width: 100%;
+}
+.autocomplete {
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 999;
+}
+
+.dropdown li {
+  padding: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.dropdown li:hover {
+  background: #f2f2f2;
+}
