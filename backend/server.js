@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/auth.js";
-
+import rideRoutes from "./routes/ride.js";
 dotenv.config();
 connectDB();
 
@@ -21,6 +21,7 @@ app.use(express.json());
 
 //path routes
 app.use("/api/auth", authRoutes);
+app.use("/api/ride", rideRoutes);
 
 //testing the route 
 app.get("/", (req, res) => {
