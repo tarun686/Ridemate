@@ -37,14 +37,13 @@ const Dashboard = () => {
             Your campus carpool companion.
           </p>
 
-          <div className="dashboard-buttons">
-            <Link to="/join-ride" className="dash-btn">
-              Join Ride
-            </Link>
-            <Link to="/create-ride" className="dash-btn outline">
-              Create Ride
-            </Link>
-          </div>
+        <div className="dashboard-buttons">
+          <Link to="/join-ride" className="dash-btn">
+            Join Ride
+          </Link>
+          <Link to="/create" className="dash-btn outline">
+            Create Ride
+          </Link>
         </div>
       </section>
 
