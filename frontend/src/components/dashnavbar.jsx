@@ -3,16 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "./dashnavbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faUser,faClock, faGear, faRightFromBracket,faStar,faCircleInfo,faWallet, faChartLine } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faUser, faClock, faGear, faRightFromBracket, faStar, faCircleInfo, faWallet, faChartLine } from "@fortawesome/free-solid-svg-icons";
 
 export default function DashNavbar() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
   const handleLogout = () => {
-    localStorage.clear();        
-    setOpen(false);                
-    navigate("/login");            
+    localStorage.clear();
+    setOpen(false);
+    navigate("/login");
   };
   return (
     <nav className="ride-navbar">
@@ -44,9 +44,9 @@ export default function DashNavbar() {
                 </div>
               </div>
               <div className="ride-panels">
-                <div className="one"><FontAwesomeIcon icon={faCircleInfo} className="icon-one"/>Help</div>
-                <div className="one"><FontAwesomeIcon icon={faWallet} className="icon-one"/>Wallet</div>
-                <div className="one"><FontAwesomeIcon icon={faChartLine} className="icon-one"/>Activity</div>
+                <div className="one"><FontAwesomeIcon icon={faCircleInfo} className="icon-one" />Help</div>
+                <div className="one"><FontAwesomeIcon icon={faWallet} className="icon-one" />Wallet</div>
+                <div className="one"><FontAwesomeIcon icon={faChartLine} className="icon-one" />Activity</div>
               </div>
               <div className="rideline"></div>
               <div className="ride-menu">
@@ -55,7 +55,13 @@ export default function DashNavbar() {
                   <span>Profile</span>
                 </div>
 
-                <div className="ride-item">
+                <div
+                  className="ride-item"
+                  onClick={() => {
+                    navigate("/rides");
+                    setOpen(false);
+                  }}
+                >
                   <FontAwesomeIcon icon={faClock} />
                   <span>Your rides</span>
                 </div>

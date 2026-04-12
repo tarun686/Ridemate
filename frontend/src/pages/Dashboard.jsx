@@ -45,6 +45,7 @@ const Dashboard = () => {
             Create Ride
           </Link>
         </div>
+        </div>
       </section>
 
       <section className="about-section">

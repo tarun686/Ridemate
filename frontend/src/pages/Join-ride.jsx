@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 import {
   MapContainer,
   TileLayer,
@@ -27,8 +28,6 @@ L.Icon.Default.mergeOptions({
   shadowUrl:
     "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png"
 });
-
-/* ---------- Fit route ---------- */
 const FitRoute = ({ geojson }) => {
   const map = useMap();
 
@@ -45,7 +44,6 @@ const FitRoute = ({ geojson }) => {
 const JoinRide = () => {
   const [pickupText, setPickupText] = useState("");
   const [dropText, setDropText] = useState("");
-
   const [pickupSuggestions, setPickupSuggestions] = useState([]);
   const [dropSuggestions, setDropSuggestions] = useState([]);
 
@@ -53,10 +51,9 @@ const JoinRide = () => {
   const [dropCoord, setDropCoord] = useState(null);
 
   const [routeGeoJSON, setRouteGeoJSON] = useState(null);
-
+  const [searchResults, setSearchResults] = useState([]);
   const defaultCenter = [30.3165, 78.0322];
 
-  /* ---------- AUTOCOMPLETE ---------- */
   const fetchSuggestions = async (query, setter) => {
     if (query.length < 3) {
       setter([]);
@@ -91,15 +88,32 @@ const JoinRide = () => {
       });
     }
   };
-  const handleSearch = () => {
+  const handleSearch = async () => {
+    console.log("Search button clicked");
     if (!pickupCoord || !dropCoord) {
       alert("Please select locations from dropdown");
       return;
     }
 
     fetchRoute(pickupCoord, dropCoord);
-  };
 
+    try {
+      const token = localStorage.getItem("token");
+      console.log("Calling API...");
+
+      const res = await axios.get(
+        `http://localhost:8080/api/ride/search?from=${pickupText}&to=${dropText}`,
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      );
+      console.log("API response:", res.data);
+      setSearchResults(res.data);
+
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
     <div className="joinride-container">
       <div className="joinride-left">
@@ -107,8 +121,8 @@ const JoinRide = () => {
           <button className="menu-btn">
             <FontAwesomeIcon icon={faBars} />
           </button>
-            <h3>RideMate</h3>
-            <img src={logo} className="canva-logo" />
+          <h3>RideMate</h3>
+          <img src={logo} className="canva-logo" />
         </div>
 
         <h2>Get a ride</h2>
@@ -182,9 +196,20 @@ const JoinRide = () => {
         <button className="search-btn" onClick={handleSearch}>
           Search Rides
         </button>
+        <div className="search-results">
+          {searchResults.length === 0 ? (
+            <p>No rides found</p>
+          ) : (
+            searchResults.map((ride) => (
+              <div key={ride._id} className="ride-card">
+                <h4>{ride.from.name} ➝ {ride.to.name}</h4>
+                <p>{new Date(ride.date).toDateString()} • {ride.time}</p>
+                <p>₹{ride.pricePerSeat}</p>
+              </div>
+            ))
+          )}
+        </div>
       </div>
-
-      {/* MAP */}
       <div className="joinride-right">
         <MapContainer center={defaultCenter} zoom={13} className="map">
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />

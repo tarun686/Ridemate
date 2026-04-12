@@ -4,7 +4,8 @@ import Signup from "./pages/Signup";
 import Join from "./pages/Join-ride";
 import Dashboard from "./pages/dashboard";
 import NavBar from "./components/NavBar";
-import Create from "./pages/Create"
+import Create from "./pages/Create";
+import Rides from "./pages/Rides";
 import "./App.css";
 import heroImage from "./assets/images/bg.png";
 import image1 from "./assets/images/boy.jpg";
@@ -65,6 +66,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/create" element={<Create/>} />
         <Route path="/join-ride" element={<Join/>} />
+        <Route path="/rides" element={<Rides/>} />
       </Routes>
     </BrowserRouter>
   );
