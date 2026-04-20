@@ -44,5 +44,29 @@ router.put("/:id", auth, async (req, res) => {
   );
   res.json(updatedRide);
 });
+router.get("/booked-rides", auth, async (req, res) => {
+  try {
+    const rides = await Ride.find({ passengers: req.user.id });
+    res.json(rides);
+  } catch {
+    res.status(500).json({ message: "Failed to fetch booked rides" });
+  }
+});
+router.get("/search", auth, async (req, res) => {
+  try {
+    const { from, to } = req.query;
 
+    const rides = await Ride.find({
+      "from.name": { $regex: from, $options: "i" },
+      "to.name": { $regex: to, $options: "i" },
+      availableSeats: { $gt: 0 }
+    });
+
+    res.json(rides);
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Search failed" });
+  }
+});
 export default router;

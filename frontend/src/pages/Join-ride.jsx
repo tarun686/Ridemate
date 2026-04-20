@@ -15,8 +15,11 @@ import {
   faBars,
   faLocationDot,
   faLocationCrosshairs,
-  faClock
+  faClock,faUser
 } from "@fortawesome/free-solid-svg-icons";
+import bikeImg from "../assets/images/bike.webp";
+import scootyImg from "../assets/images/scooty2.png";
+import carImg from "../assets/images/car1.png";
 import logo from "../assets/images/ridemate-logo3.png";
 import "./Join-ride.css";
 delete L.Icon.Default.prototype._getIconUrl;
@@ -52,6 +55,9 @@ const JoinRide = () => {
 
   const [routeGeoJSON, setRouteGeoJSON] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
+  const [selectedRide, setSelectedRide] = useState(null);
   const defaultCenter = [30.3165, 78.0322];
 
   const fetchSuggestions = async (query, setter) => {
@@ -89,17 +95,18 @@ const JoinRide = () => {
     }
   };
   const handleSearch = async () => {
-    console.log("Search button clicked");
     if (!pickupCoord || !dropCoord) {
       alert("Please select locations from dropdown");
       return;
     }
 
+    setIsSearching(true);
+    setHasSearched(true);
+
     fetchRoute(pickupCoord, dropCoord);
 
     try {
       const token = localStorage.getItem("token");
-      console.log("Calling API...");
 
       const res = await axios.get(
         `http://localhost:8080/api/ride/search?from=${pickupText}&to=${dropText}`,
@@ -107,11 +114,14 @@ const JoinRide = () => {
           headers: { Authorization: `Bearer ${token}` }
         }
       );
-      console.log("API response:", res.data);
-      setSearchResults(res.data);
+      setTimeout(() => {
+        setSearchResults(res.data);
+        setIsSearching(false);
+      }, 2000);
 
     } catch (err) {
       console.error(err);
+      setIsSearching(false);
     }
   };
   return (
@@ -197,17 +207,62 @@ const JoinRide = () => {
           Search Rides
         </button>
         <div className="search-results">
-          {searchResults.length === 0 ? (
-            <p>No rides found</p>
-          ) : (
-            searchResults.map((ride) => (
-              <div key={ride._id} className="ride-card">
-                <h4>{ride.from.name} ➝ {ride.to.name}</h4>
-                <p>{new Date(ride.date).toDateString()} • {ride.time}</p>
-                <p>₹{ride.pricePerSeat}</p>
-              </div>
-            ))
+          {!isSearching && hasSearched && searchResults.length > 0 && (
+            <h2>Choose a ride
+              <p className="choose-sub">Rides we think you'll like</p>
+            </h2>
           )}
+
+          {isSearching ? (
+            <div className="searching-state">
+              <div className="loader"></div>
+              <p>Searching rides near you...</p>
+            </div>
+          ) : hasSearched ? (
+            searchResults.length > 0 ? (
+              searchResults.map((ride) => (
+                <div
+                  key={ride._id}
+                  className={`ride-card ${selectedRide?._id === ride._id ? "selected" : ""}`}
+                  onClick={() => setSelectedRide(ride)}
+                >
+                  <div className="ride-left-section">
+                    <img
+                      src={
+                        ride.vehicle === "bike"
+                          ? bikeImg
+                          : ride.vehicle === "scooty"
+                            ? scootyImg
+                            : carImg
+                      }
+                      alt={ride.vehicle}
+                      className="ride-vehicle-img"
+                    />
+
+                    <div className="ride-details">
+                      <h4>{ride.vehicle}</h4>
+                      <p>5 mins away • {ride.time}</p>
+                      <span>
+                        {ride.vehicle === "bike"
+                          ? "Affordable bike rides"
+                          : ride.vehicle === "car"
+                            ? "Comfortable carpool"
+                            : "Quick scooty rides"}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="ride-price">
+                    ₹{ride.pricePerSeat}
+                    <div><FontAwesomeIcon icon={faUser} />
+                    {ride.availableSeats}</div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>No rides available at the moment</p>
+            )
+          ) : null}
         </div>
       </div>
       <div className="joinride-right">
