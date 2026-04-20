@@ -17,7 +17,9 @@ const Create = () => {
   const [price, setPrice] = useState("");
   const [vehicleno, setVehicleNo] = useState("");
   const [message, setMessage] = useState("");
-  const [vehicle,setVehicle]=useState("");
+
+  const [myRides, setMyRides] = useState([]);
+  const [editingRide, setEditingRide] = useState(null);
 
   const fetchLocations = async (query, setSuggestions) => {
     if (query.length < 3) return setSuggestions([]);
@@ -34,19 +36,29 @@ const Create = () => {
     e.preventDefault();
     const token = localStorage.getItem("token");
 
-    await axios.post(
-      "http://localhost:8080/api/ride/create",
-      {
-        from,
-        to,
-        date,
-        time,
-        availableSeats: seats,
-        pricePerSeat: price,
-        vehicle,
-      },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+    if (!from.lat || !to.lat) {
+      alert("Please select valid locations");
+      return;
+    }
+
+    try {
+      const route = await getRoute(from, to);
+
+      const dateTime = new Date(`${date}T${time}`);
+
+      await axios.post(
+        "http://localhost:8080/api/ride/create",
+        {
+          from,
+          to,
+          dateTime,
+          route,
+          availableSeats: seats,
+          pricePerSeat: price,
+          vehicle,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
 
     setMessage("Ride created successfully!");
   };

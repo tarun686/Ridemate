@@ -11,6 +11,9 @@ import heroImage from "./assets/images/bg.png";
 import image1 from "./assets/images/boy.jpg";
 import image2 from "./assets/images/map.jpg";
 import image3 from "./assets/images/carani.gif";
+import DriverRequests from "./pages/DriverRequests";
+
+
 
 function Home() {
   return (

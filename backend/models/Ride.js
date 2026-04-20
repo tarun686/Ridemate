@@ -19,13 +19,9 @@ const rideSchema = new mongoose.Schema({
     lng: Number
   },
 
-  date: {
+  // 🔥 IMPORTANT: combine date + time
+  dateTime: {
     type: Date,
-    required: true
-  },
-
-  time: {
-    type: String,
     required: true
   },
 
@@ -41,6 +37,38 @@ const rideSchema = new mongoose.Schema({
 
   vehicle: String,
   notes: String,
+
+  // 🧠 route for matching algorithm
+  route: [
+    {
+      lat: Number,
+      lng: Number
+    }
+  ],
+
+  // 👥 accepted passengers
+  passengers: [
+    {
+      user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+      from: {
+        lat: Number,
+        lng: Number,
+        name: String
+      },
+      to: {
+        lat: Number,
+        lng: Number,
+        name: String
+      }
+    }
+  ],
+
+  // 🚦 ride status
+  status: {
+    type: String,
+    enum: ["active", "full", "expired"],
+    default: "active"
+  },
 
   createdAt: {
     type: Date,

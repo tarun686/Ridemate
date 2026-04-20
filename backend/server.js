@@ -4,6 +4,7 @@ import cors from "cors";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/auth.js";
 import rideRoutes from "./routes/ride.js";
+import requestRoutes from "./routes/requestRoutes.js";
 dotenv.config();
 connectDB();
 
@@ -32,3 +33,8 @@ app.get("/", (req, res) => {
 //server listening
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port http://localhost:${PORT}`));
+
+
+app.use("/api/ride", rideRoutes);
+
+app.use("/api/request", requestRoutes);
