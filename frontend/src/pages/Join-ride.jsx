@@ -223,7 +223,7 @@ const JoinRide = () => {
               searchResults.map((ride) => (
                 <div
                   key={ride._id}
-                  className={`ride-card ${selectedRide?._id === ride._id ? "selected" : ""}`}
+                  className={`ride-cards ${selectedRide?._id === ride._id ? "selected" : ""}`}
                   onClick={() => setSelectedRide(ride)}
                 >
                   <div className="ride-left-section">
