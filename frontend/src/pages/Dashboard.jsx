@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBagShopping, faMoneyBill1, faSquareCheck } from "@fortawesome/free-solid-svg-icons";
 import {faYoutube,faXTwitter,faInstagram} from "@fortawesome/free-brands-svg-icons";
 import { useEffect, useState } from "react";
+import socket from "../socket";
 
 const images = [campus1, campus2, campus3];
 const Dashboard = () => {
@@ -36,7 +37,7 @@ const Dashboard = () => {
           <p className="dashboard-subtitle">
             Your campus carpool companion.
           </p>
-        </div>
+
         <div className="dashboard-buttons">
           <Link to="/join-ride" className="dash-btn">
             Join Ride
@@ -44,8 +45,6 @@ const Dashboard = () => {
           <Link to="/create" className="dash-btn outline">
             Create Ride
           </Link>
-          <Link to="/driver-requests">Ride Requests</Link>
-
         </div>
         </div>
       </section>

@@ -35,8 +35,16 @@ const rideSchema = new mongoose.Schema({
     required: true
   },
 
-  vehicle: String,
-  notes: String,
+  vehicle: {
+    type: String,
+    required: true,
+  },
+  
+  vehicleNo: {
+    type: String,
+    required: true,
+  },
+  
 
   // 🧠 route for matching algorithm
   route: [
@@ -49,20 +57,32 @@ const rideSchema = new mongoose.Schema({
   // 👥 accepted passengers
   passengers: [
     {
-      user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
       from: {
         lat: Number,
         lng: Number,
-        name: String
+        name: String,
       },
       to: {
         lat: Number,
         lng: Number,
-        name: String
-      }
-    }
+        name: String,
+      },
+      status: {
+        type: String,
+        enum: ["pending", "accepted", "rejected"],
+        default: "pending",
+      },
+      requestedAt: {
+        type: Date,
+        default: Date.now,
+      },
+    },
   ],
-
+  
   // 🚦 ride status
   status: {
     type: String,

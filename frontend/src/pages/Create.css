@@ -1,112 +1,111 @@
 @font-face {
-    src: url(https://cdn.blablacar.com/kairos/theme-provider/assets/fonts/GT-Eesti-Pro-Display-Regular-1.woff2) format("woff2"), url(https://cdn.blablacar.com/kairos/theme-provider/assets/fonts/GT-Eesti-Pro-Display-Regular-1.woff) format("woff");
-    font-display: swap;
-    font-style: normal;
-    font-family: gt-eesti;
+  src: url(https://cdn.blablacar.com/kairos/theme-provider/assets/fonts/GT-Eesti-Pro-Display-Regular-1.woff2) format("woff2"), url(https://cdn.blablacar.com/kairos/theme-provider/assets/fonts/GT-Eesti-Pro-Display-Regular-1.woff) format("woff");
+  font-display: swap;
+  font-style: normal;
+  font-family: gt-eesti;
 }
 .create-page {
-  padding: 15px 10px;
-  display: flex;
-  flex-direction: column;
-  height:125vh;
+padding: 15px 10px;
+display: flex;
+flex-direction: column;
+height:125vh;
 }
 .top-display{
-  display:flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex-wrap:wrap;
+display:flex;
+align-items: center;
+justify-content: flex-end;
+flex-wrap:wrap;
 }
 .head-text{
-  font-size:38px;
-  font-family: "gt-eesti","Helvetica Neue",Helvetica;
-  margin-top:63px;
-  text-align:center;
-  color:#8b5502;
-  font-weight:700;
-  padding:15px;
-  background: #f8dc75;
+font-size:24px;
+font-family: "gt-eesti","Helvetica Neue",Helvetica;
+margin-top:63px;
+text-align:center;
+color:#8b5502;
+font-weight:700;
+padding:15px;
+background: #f8dc75;
 }
 .create-card {
-  background: #fff;
-  padding: 25px;
-  margin-right:100px;
-  border-radius: 14px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-  border:2px solid #bb7c23;
-  margin-left:100px;
+background: #fff;
+padding: 25px;
+border-radius: 14px;
+box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+border:2px solid #bb7c23;
+margin: 30px auto;
 }
 
 .create-card h2 {
-  margin-bottom: 10px;
-  text-align: center;
+margin-bottom: 10px;
+text-align: center;
 }
 
 .create-card form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
 }
 
 .create-card input {
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 15px;
+padding: 12px;
+border-radius: 8px;
+border: 1px solid #ccc;
+font-size: 15px;
 }
 
 .create-card button {
-  grid-column: span 2;
-  background: #bb7c23;
-  border: none;
-  padding: 14px;
-  font-weight: 700;
-  border-radius: 8px;
-  cursor: pointer;
+grid-column: span 2;
+background: #bb7c23;
+border: none;
+padding: 14px;
+font-weight: 700;
+border-radius: 8px;
+cursor: pointer;
 }
 .create-card select {
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 15px;
-  background: white;
+padding: 12px;
+border-radius: 8px;
+font-size: 15px;
+background: white;
 }
 .success {
-  text-align: center;
-  margin-top: 10px;
-  color: green;
+text-align: center;
+margin-top: 10px;
+color: green;
 }
 
 .autocomplete {
-  position: relative;
+position: relative;
 }
 
 .suggestions {
-  position: absolute;
-  background: white;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  width: 100%;
-  z-index: 10;
-  list-style: none;
-  padding: 0;
+position: absolute;
+background: white;
+border-radius: 8px;
+border: 1px solid #ddd;
+width: 100%;
+z-index: 10;
+list-style: none;
+padding: 0;
 }
 
 .suggestions li {
-  padding: 10px;
-  cursor: pointer;
+padding: 10px;
+cursor: pointer;
 }
 
 .suggestions li:hover {
-  background: #f5f5f5;
+background: #f5f5f5;
 }
 .create-video video{
-  width: 560px;
-  height: 360px;
-  object-fit: cover;
-  border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+width: 560px;
+height: 360px;
+object-fit: cover;
+border-radius: 14px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 @media (max-width: 600px) {
-  .create-card {
-    padding: 20px;
-  }
+.create-card {
+  padding: 20px;
+}
 }

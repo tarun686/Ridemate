@@ -1,8 +1,10 @@
+import { useEffect } from "react";
+import socket from "./socket";
 import { Link, BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Join from "./pages/Join-ride";
-import Dashboard from "./pages/dashboard";
+import Dashboard from "./pages/Dashboard";
 import NavBar from "./components/NavBar";
 import Create from "./pages/Create";
 import Rides from "./pages/Rides";
@@ -11,7 +13,6 @@ import heroImage from "./assets/images/bg.png";
 import image1 from "./assets/images/boy.jpg";
 import image2 from "./assets/images/map.jpg";
 import image3 from "./assets/images/carani.gif";
-import DriverRequests from "./pages/DriverRequests";
 
 
 
