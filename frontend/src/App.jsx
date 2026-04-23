@@ -6,6 +6,7 @@ import Dashboard from "./pages/dashboard";
 import NavBar from "./components/NavBar";
 import Create from "./pages/Create";
 import Rides from "./pages/Rides";
+import RideDetails from "./pages/RideDetails"
 import "./App.css";
 import heroImage from "./assets/images/bg.png";
 import image1 from "./assets/images/boy.jpg";
@@ -67,6 +68,7 @@ function App() {
         <Route path="/create" element={<Create/>} />
         <Route path="/join-ride" element={<Join/>} />
         <Route path="/rides" element={<Rides/>} />
+        <Route path="/ride/:rideId/details" element={<RideDetails />} />
       </Routes>
     </BrowserRouter>
   );
