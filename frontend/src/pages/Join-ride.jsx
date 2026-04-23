@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   MapContainer,
@@ -15,8 +16,7 @@ import {
   faBars,
   faLocationDot,
   faLocationCrosshairs,
-  faClock,
-  faUser,
+  faClock, faUser
 } from "@fortawesome/free-solid-svg-icons";
 import bikeImg from "../assets/images/bike.webp";
 import scootyImg from "../assets/images/scooty2.png";
@@ -70,6 +70,7 @@ const JoinRide = () => {
   const [paymentMode, setPaymentMode] = useState("Cash");
 
   const defaultCenter = [30.3165, 78.0322];
+  const navigate = useNavigate();
 
   const getVehicleImage = (vehicle) => {
     if (vehicle === "bike") return bikeImg;
@@ -113,6 +114,9 @@ const JoinRide = () => {
     });
   };
 
+  const handleConfirm = (ride) => {
+    navigate(`/ride/${ride._id}/details`);
+  };
   const fetchSuggestions = async (query, setter) => {
     if (query.trim().length < 3) {
       setter([]);
@@ -480,7 +484,6 @@ const JoinRide = () => {
           </>
         )}
       </div>
-
       <div className="joinride-right">
         <MapContainer center={defaultCenter} zoom={13} className="map">
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />

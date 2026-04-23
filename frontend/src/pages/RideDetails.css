@@ -1,0 +1,220 @@
+.rides-container{
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+.ride-container {
+  width:35%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding:15px;
+  margin-left:20px;
+  overflow-y: scroll;
+}
+.eta-box {
+  background: #000;
+  color: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.eta-box p {
+  margin: 2px 0;
+}
+
+.driver-card {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  justify-content:space-between;
+}
+.driver-face{
+    position:relative;
+}
+.veh-img{
+    height:auto;
+    width:120px;
+}
+.veh-info h3{
+    line-height: 1px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    color:rgb(159, 159, 184);
+}
+.driver-icon{
+  position: absolute;
+  top: 40px;
+  right: 60px;
+  width: 60px;
+  height: 60px;
+  background: rgb(159, 159, 184);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: black;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+
+}
+.otp-container {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items:center;
+  margin-top: 10px;
+  background-color:#eee;
+  border-radius: 10px;
+}
+
+.otp-box {
+  width: 35px;
+  height: 40px;
+  background:  #bb7c23;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+}
+.driver-face p{
+    position:absolute;
+    right:60px;
+    top:80px;
+    left:50px;
+    font-weight:800;
+}
+.action {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 15px;
+}
+.chat-btn {
+  background:#eee;
+  color: black;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  width:60%;
+  height:40px;
+  display:flex;
+  justify-content: center;
+  align-items:center;
+  gap:7px;
+}
+.call{
+    border:none;
+    border-radius: 8px;
+    height:40px;
+    width:60px;
+}
+.location-status{
+    display:flex;
+    flex-direction:column;
+    justify-items: center;
+}
+.line{
+    width:2px;
+    height:80px;
+    background-color:#000;
+    margin:8px;
+}
+.binding{
+    display:flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content:space-between;
+}
+.binding-1{
+    display:flex;
+    flex-direction: row;
+    align-items:center;
+    gap:5px;
+}
+.change-button{
+    border-radius: 8px;
+    width:80px;
+    height:40px;
+    background-color: #eee;
+    padding:10px;
+    font-weight:600;
+}
+.some-options{
+    display:flex;
+    flex-direction:column;
+}
+.cou-sup{
+    width:100%;
+    height:55px;
+    background-color:bisque;
+    margin:5px;
+    border-radius:20px;
+    display:flex;
+    justify-items: center ;
+    align-items:center;
+    gap:5px;
+}
+.cancel-ride{
+    display:flex;
+    justify-items: center ;
+    align-items:center;
+    gap:5px;
+    width:100%;
+    height:55px;
+    border-radius:20px;
+    background-color:rgb(236, 56, 56);
+    color:black;
+    margin:5px;
+}
+.icon-size{
+    width:30px;
+    height:20px;
+    margin:10px;
+}
+.rides-right{
+    width: 75%;
+    height: 100%;
+}
+.map {
+  height: 100%;
+  width: 100%;
+}
+.chat-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.chat-box {
+    width: 400px;
+    height: 500px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+}
+
+.close-chat {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    border: none;
+    background: red;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+}

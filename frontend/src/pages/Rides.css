@@ -118,6 +118,7 @@
   display:flex;
   justify-content: space-between;
   align-items: center;
+  gap:200px;
 }
 .driver-img{
   background:url("/driver.jpg") center/cover no-repeat;
@@ -133,6 +134,7 @@
   flex-direction: row;
   gap:10px;
   align-items: center;
+  justify-content: space-evenly;
 }
 .danger {
   background: #ff4d4f;
