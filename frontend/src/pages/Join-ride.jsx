@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   MapContainer,
@@ -15,7 +16,7 @@ import {
   faBars,
   faLocationDot,
   faLocationCrosshairs,
-  faClock,faUser
+  faClock, faUser
 } from "@fortawesome/free-solid-svg-icons";
 import bikeImg from "../assets/images/bike.webp";
 import scootyImg from "../assets/images/scooty2.png";
@@ -59,7 +60,11 @@ const JoinRide = () => {
   const [hasSearched, setHasSearched] = useState(false);
   const [selectedRide, setSelectedRide] = useState(null);
   const defaultCenter = [30.3165, 78.0322];
+  const navigate = useNavigate();
 
+  const handleConfirm = (ride) => {
+    navigate(`/ride/${ride._id}/details`);
+  };
   const fetchSuggestions = async (query, setter) => {
     if (query.length < 3) {
       setter([]);
@@ -223,7 +228,7 @@ const JoinRide = () => {
               searchResults.map((ride) => (
                 <div
                   key={ride._id}
-                  className={`ride-card ${selectedRide?._id === ride._id ? "selected" : ""}`}
+                  className={`ride-cards ${selectedRide?._id === ride._id ? "selected" : ""}`}
                   onClick={() => setSelectedRide(ride)}
                 >
                   <div className="ride-left-section">
@@ -249,13 +254,16 @@ const JoinRide = () => {
                             ? "Comfortable carpool"
                             : "Quick scooty rides"}
                       </span>
+                      <button onClick={() => handleConfirm(ride)}>
+                        Confirm Ride
+                      </button>
                     </div>
                   </div>
 
                   <div className="ride-price">
                     ₹{ride.pricePerSeat}
                     <div><FontAwesomeIcon icon={faUser} />
-                    {ride.availableSeats}</div>
+                      {ride.availableSeats}</div>
                   </div>
                 </div>
               ))
