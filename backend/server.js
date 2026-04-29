@@ -6,7 +6,7 @@ import { Server } from "socket.io";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/auth.js";
 import rideRoutes from "./routes/ride.js";
-
+import Ride from "./models/Ride.js";
 dotenv.config();
 connectDB();
 
@@ -33,6 +33,7 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
   socket.on("join-ride-room", ({ rideId }) => {
+    console.log("JOIN ROOM:", rideId);
     socket.join(`ride_${rideId}`);
   });
 
@@ -40,7 +41,11 @@ io.on("connection", (socket) => {
     socket.leave(`ride_${rideId}`);
   });
 
-  socket.on("driver-location:send", ({ rideId, driverId, location }) => {
+  socket.on("driver-location:send", async ({ rideId, driverId, location }) => {
+    console.log("📡 BACKEND RECEIVED DRIVER:", location);
+    await Ride.findByIdAndUpdate(rideId, {
+      driverLocation: location
+    });
     io.to(`ride_${rideId}`).emit("driver-location:update", {
       rideId,
       driverId,
