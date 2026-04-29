@@ -32,17 +32,33 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log("Socket connected:", socket.id);
-
-  socket.on("join-user-room", (userId) => {
-    socket.join(userId);
-    console.log(`User joined room: ${userId}`);
+  socket.on("join-ride-room", ({ rideId }) => {
+    socket.join(`ride_${rideId}`);
   });
 
-  socket.on("disconnect", () => {
-    console.log("Socket disconnected:", socket.id);
+  socket.on("leave-ride-room", ({ rideId }) => {
+    socket.leave(`ride_${rideId}`);
+  });
+
+  socket.on("driver-location:send", ({ rideId, driverId, location }) => {
+    io.to(`ride_${rideId}`).emit("driver-location:update", {
+      rideId,
+      driverId,
+      location,
+    });
+  });
+
+  socket.on("passenger-location:send", ({ rideId, passengerId, userId, name, location }) => {
+    io.to(`ride_${rideId}`).emit("passenger-location:update", {
+      rideId,
+      passengerId,
+      userId,
+      name,
+      location,
+    });
   });
 });
+
 
 // Makes io available inside routes as req.io
 app.use((req, res, next) => {

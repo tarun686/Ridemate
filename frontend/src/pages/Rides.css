@@ -370,6 +370,21 @@
   margin: 12px 0;
   flex-wrap: wrap;
 }
+.created-split {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.created-column {
+  flex: 1;
+}
+
+.created-divider {
+  width: 1px;
+  background: #d9d9d9;
+  align-self: stretch;
+}
 
 .request-meta-item {
   display: flex;

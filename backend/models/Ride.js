@@ -76,19 +76,28 @@ const rideSchema = new mongoose.Schema({
         enum: ["pending", "accepted", "rejected"],
         default: "pending",
       },
-      requestedAt: {
-        type: Date,
-        default: Date.now,
+      otp: String,
+      otpVerified: {
+        type: Boolean,
+        default: false,
       },
+      pickupConfirmedAt: Date,
     },
   ],
   
   // 🚦 ride status
   status: {
     type: String,
-    enum: ["active", "full", "expired"],
-    default: "active"
+    enum: ["active", "full", "driver_started", "in_progress", "completed", "expired"],
+    default: "active",
   },
+  startedAt: Date,
+  completedAt: Date,
+  driverLocation: {
+    lat: Number,
+    lng: Number,
+    updatedAt: Date,
+  },  
 
   createdAt: {
     type: Date,

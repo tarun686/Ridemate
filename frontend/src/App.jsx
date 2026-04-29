@@ -16,7 +16,6 @@ import image2 from "./assets/images/map.jpg";
 import image3 from "./assets/images/carani.gif";
 
 
-
 function Home() {
   return (
     <>
@@ -72,8 +71,8 @@ function App() {
         <Route path="/create" element={<Create/>} />
         <Route path="/join-ride" element={<Join/>} />
         <Route path="/rides" element={<Rides/>} />
-        <Route path="/ride/:rideId/details" element={<RideDetails />} />
-      </Routes>
+        <Route path="/ride-details/:rideId" element={<RideDetails />} />
+        </Routes>
     </BrowserRouter>
   );
 }

@@ -7,14 +7,15 @@
 .create-page {
 padding: 15px 10px;
 display: flex;
-flex-direction: column;
-height:125vh;
+width: 100%;
+justify-content: space-around;
 }
 .top-display{
 display:flex;
 align-items: center;
-justify-content: flex-end;
+justify-content: space-evenly;
 flex-wrap:wrap;
+gap: 20px;
 }
 .head-text{
 font-size:24px;

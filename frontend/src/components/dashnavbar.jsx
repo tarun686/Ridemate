@@ -37,7 +37,6 @@ export default function DashNavbar() {
               <div className="ride-user">
                 <div>
                   <h2>{user?.name}</h2>
-                  <h2>{user?.name}</h2>
                   <div className="rating"><span><FontAwesomeIcon icon={faStar} />  5</span></div>
                 </div>
                 <div className="avatar-circle">

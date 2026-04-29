@@ -1,28 +1,25 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faLocationCrosshairs,
-  faCircleInfo,
-  faBars,
-  faUserPen,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBars, faUserPen } from "@fortawesome/free-solid-svg-icons";
 import bikeImg from "../assets/images/bike.webp";
 import scootyImg from "../assets/images/scooty2.png";
 import carImg from "../assets/images/car1.png";
 import createdImg from "/ride.jpg";
 import bookedImg from "../assets/images/booked.png";
 import "./Rides.css";
+import RideCard from "../components/Ridecard";
 import socket from "../socket";
+import { useNavigate } from "react-router-dom";
 
-// Helper to get ride date and time
+
 const Rides = () => {
   const [createdRides, setCreatedRides] = useState([]);
   const [bookedRides, setBookedRides] = useState([]);
   const [rideRequests, setRideRequests] = useState([]);
   const [activeTab, setActiveTab] = useState("created");
-
-  // Fetch rides created by the user
+  const navigate = useNavigate();
+  
   const fetchMyRides = async () => {
     const token = localStorage.getItem("token");
 
@@ -33,24 +30,25 @@ const Rides = () => {
     setCreatedRides(res.data);
   };
 
-  // Fetch rides booked by the user
   const fetchBookedRides = async () => {
     try {
       const token = localStorage.getItem("token");
-  
-      const res = await axios.get("http://localhost:8080/api/ride/booked-rides", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-  
+
+      const res = await axios.get(
+        "http://localhost:8080/api/ride/booked-rides",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
       setBookedRides(res.data);
     } catch (err) {
       console.error(err);
     }
   };
-  
-  // Fetch ride requests for rides created by the user
+
   const fetchRideRequests = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -68,13 +66,11 @@ const Rides = () => {
   };
 
   useEffect(() => {
-  fetchMyRides();
-  fetchBookedRides();
-  fetchRideRequests();
-}, []);
+    fetchMyRides();
+    fetchBookedRides();
+    fetchRideRequests();
+  }, []);
 
-
-  // Delete a ride created by the user
   const deleteRide = async (id) => {
     const token = localStorage.getItem("token");
 
@@ -86,7 +82,6 @@ const Rides = () => {
     fetchRideRequests();
   };
 
-  // Accept or reject ride requests
   const acceptRequest = async (rideId, passengerId) => {
     try {
       const token = localStorage.getItem("token");
@@ -101,16 +96,14 @@ const Rides = () => {
         }
       );
 
-        fetchMyRides();
-        fetchBookedRides();
-        fetchRideRequests();
-
+      fetchMyRides();
+      fetchBookedRides();
+      fetchRideRequests();
     } catch (err) {
       alert(err.response?.data?.message || "Failed to accept request");
     }
   };
 
-  // Reject a ride request
   const rejectRequest = async (rideId, passengerId) => {
     try {
       const token = localStorage.getItem("token");
@@ -131,29 +124,50 @@ const Rides = () => {
     }
   };
 
-  // Listen for real-time updates on ride request status
   useEffect(() => {
     const handleAccepted = (data) => {
-        alert(data.message);
-        fetchBookedRides();
-      };      
-  
-    // When a request is accepted, we also want to refresh the booked rides to show the new booking
+      alert(data.message);
+      fetchBookedRides();
+    };
+
     const handleRejected = (data) => {
       alert(data.message);
     };
-  
+
+    // Listen for real-time ride status updates
+    const handleRideStarted = (data) => {
+      console.log("Ride started:", data);
+      fetchMyRides();
+      fetchBookedRides();
+    };
+
+    const handleRideCompleted = (data) => {
+      console.log("Ride completed:", data);
+      fetchMyRides();
+      fetchBookedRides();
+    };
+
+    const handleOTPVerified = (data) => {
+      console.log("OTP verified:", data);
+      fetchMyRides();
+      fetchBookedRides();
+    };
+
     socket.on("ride-request-accepted", handleAccepted);
     socket.on("ride-request-rejected", handleRejected);
-  
+    socket.on("ride:started", handleRideStarted);
+    socket.on("ride:completed", handleRideCompleted);
+    socket.on("ride:passenger-otp-verified", handleOTPVerified);
+
     return () => {
       socket.off("ride-request-accepted", handleAccepted);
       socket.off("ride-request-rejected", handleRejected);
+      socket.off("ride:started", handleRideStarted);
+      socket.off("ride:completed", handleRideCompleted);
+      socket.off("ride:passenger-otp-verified", handleOTPVerified);
     };
   }, []);
 
-  
-  // Helper to get vehicle image based on type
   const getVehicleImage = (type) => {
     if (type === "bike") return bikeImg;
     if (type === "scooty") return scootyImg;
@@ -161,16 +175,39 @@ const Rides = () => {
     return null;
   };
 
-  //tabs switch
-  const ridesToShow = activeTab === "created" ? createdRides : bookedRides;
-
   const rightImage =
     activeTab === "created"
       ? createdImg
       : activeTab === "booked"
       ? bookedImg
       : createdImg;
-  //
+
+  const now = Date.now();
+
+  const activeCreatedRides = [...createdRides]
+    .filter((ride) => new Date(ride.dateTime).getTime() >= now)
+    .sort(
+      (a, b) => new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime()
+    );
+
+  const historyCreatedRides = [...createdRides]
+    .filter((ride) => new Date(ride.dateTime).getTime() < now)
+    .sort(
+      (a, b) => new Date(b.dateTime).getTime() - new Date(a.dateTime).getTime()
+    );
+
+  const sortedBookedRides = [...bookedRides].sort(
+    (a, b) => new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime()
+  );
+
+  const pendingRideRequests = rideRequests.filter((ride) => {
+    const rideStartTime = new Date(ride.dateTime).getTime();
+    const hasPendingPassengers = ride.passengers?.some(
+      (passenger) => passenger.status === "pending"
+    );
+
+    return rideStartTime > now && hasPendingPassengers;
+  });
 
   return (
     <div className="rides-main">
@@ -214,80 +251,77 @@ const Rides = () => {
             </button>
           </div>
 
-          {activeTab !== "requests" &&
-            (ridesToShow.length === 0 ? (
+          {activeTab === "created" && (
+            <>
+              <h3>Active Ride</h3>
+              {activeCreatedRides.length === 0 ? (
+                <p className="empty">No active rides</p>
+              ) : (
+                activeCreatedRides.map((ride) => (
+                  <RideCard
+                    key={ride._id}
+                    ride={ride}
+                    showDelete={true}
+                    onDelete={deleteRide}
+                    getVehicleImage={getVehicleImage}
+                    onClick={() => navigate(`/ride-details/${ride._id}`)}
+                    isClickable={true}
+                  />
+                ))
+              )}
+
+              <h3>History</h3>
+              {historyCreatedRides.length === 0 ? (
+                <p className="empty">No history rides</p>
+              ) : (
+                historyCreatedRides.map((ride) => (
+                  <RideCard
+                    key={ride._id}
+                    ride={ride}
+                    showDelete={false}
+                    onDelete={deleteRide}
+                    getVehicleImage={getVehicleImage}
+                    onClick={
+                      ride.status !== "completed"
+                        ? () => navigate(`/ride-details/${ride._id}`)
+                        : undefined
+                    }
+                    isClickable={ride.status !== "completed"}
+                  />
+                ))
+              )}
+            </>
+          )}
+
+          {activeTab === "booked" &&
+            (sortedBookedRides.length === 0 ? (
               <p className="empty">No rides yet</p>
             ) : (
-              ridesToShow.map((ride) => (
-                <div className="ride-card" key={ride._id}>
-                  <div className="first-line">
-                    <div>
-                      <p>
-                        {new Date(ride.dateTime).toDateString()} •{" "}
-                        {new Date(ride.dateTime).toLocaleTimeString([], {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}
-                      </p>
-                    </div>
-                    <div>
-                      <p>₹{ride.pricePerSeat}</p>
-                    </div>
-                  </div>
-
-                  <div className="location">
-                    <p>
-                      <FontAwesomeIcon
-                        icon={faLocationCrosshairs}
-                        style={{ color: "red" }}
-                      />{" "}
-                      {ride.from.name}
-                    </p>
-
-                    <p>
-                      <FontAwesomeIcon
-                        icon={faLocationCrosshairs}
-                        style={{ color: "green" }}
-                      />{" "}
-                      {ride.to.name}
-                    </p>
-                  </div>
-
-                  <div className="actions">
-                    <div className="delete-info">
-                      {activeTab === "created" && (
-                        <button
-                          className="danger"
-                          onClick={() => deleteRide(ride._id)}
-                        >
-                          Delete
-                        </button>
-                      )}
-
-                      <FontAwesomeIcon icon={faCircleInfo} />
-
-                      <img
-                        src={getVehicleImage(ride.vehicle)}
-                        alt={ride.vehicle}
-                        className="vehicle-img"
-                      />
-
-                      <p>{ride.vehicleNo}</p>
-                    </div>
-
-                    <div className="driver-img"></div>
-                  </div>
-                </div>
+              sortedBookedRides.map((ride) => (
+                <RideCard
+                  key={ride._id}
+                  ride={ride}
+                  showDelete={false}
+                  onDelete={deleteRide}
+                  getVehicleImage={getVehicleImage}
+                  onClick={
+                    ride.status !== "completed"
+                      ? () => navigate(`/ride-details/${ride._id}`)
+                      : undefined
+                  }
+                  isClickable={ride.status !== "completed"}
+                />
               ))
             ))}
+
           {activeTab === "requests" && (
             <div className="requests-demo">
               <h3>Ride Requests</h3>
 
-              {rideRequests.length === 0 ? (
+              {pendingRideRequests.length === 0 ? (
                 <p className="empty">No ride requests yet</p>
               ) : (
-                rideRequests.map((ride) => (
+                pendingRideRequests.map((ride) => (
                   <div className="request-ride-card" key={ride._id}>
                     <div className="request-ride-header">
                       <div className="request-route-clean">
@@ -313,6 +347,7 @@ const Rides = () => {
                         })}
                       </span>
                     </div>
+
                     <div className="request-meta">
                       <div className="request-meta-item">
                         <img
