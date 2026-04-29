@@ -153,13 +153,24 @@
 .cou-sup{
     width:100%;
     height:55px;
-    background-color:bisque;
+    background-color:rgb(251, 202, 202);
     margin:5px;
     border-radius:20px;
     display:flex;
     justify-items: center ;
     align-items:center;
     gap:5px;
+}
+.cou-sup2{
+  width:100%;
+  height:55px;
+  background-color:beige;
+  margin:5px;
+  border-radius:20px;
+  display:flex;
+  justify-items: center ;
+  align-items:center;
+  gap:5px;
 }
 .cancel-ride{
     display:flex;
@@ -217,4 +228,119 @@
     color: white;
     padding: 5px 10px;
     cursor: pointer;
+}
+.passenger-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.passenger-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.passenger-verify-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.passenger-main-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.passenger-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgb(159, 159, 184);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+}
+
+.passenger-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.passenger-text span,
+.passenger-text small {
+  color: #777;
+  font-size: 13px;
+}
+
+.mini-icon-btn {
+  border: none;
+  border-radius: 8px;
+  width: 42px;
+  height: 38px;
+  background: #eee;
+  cursor: pointer;
+}
+
+.otp-verify-box {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+}
+
+.otp-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.otp-action-row {
+  display: flex;
+  gap: 8px;
+}
+
+.otp-input {
+  flex: 1;
+  height: 38px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 0 10px;
+}
+
+.verify-btn {
+  border: none;
+  border-radius: 8px;
+  background: #000;
+  color: #fff;
+  padding: 0 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.verify-btn:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+.verified-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #dff7df;
+  color: #176b17;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.empty-passenger {
+  color: #777;
+  margin: 0;
 }

@@ -249,6 +249,9 @@ router.patch("/:rideId/request/:passengerId/accept", auth, async (req, res) => {
     }
 
     passengerRequest.status = "accepted";
+    passengerRequest.otp = Math.floor(1000 + Math.random() * 9000).toString();
+    passengerRequest.otpVerified = false;
+
     ride.availableSeats -= 1;
 
     if (ride.availableSeats === 0) {
@@ -315,5 +318,142 @@ router.patch("/:rideId/request/:passengerId/reject", auth, async (req, res) => {
   }
 });
 
+
+router.get("/:rideId/details", auth, async (req, res) => {
+  try {
+    const ride = await Ride.findById(req.params.rideId)
+      .populate("driver", "name email phone")
+      .populate("passengers.user", "name email phone");
+
+    if (!ride) {
+      return res.status(404).json({ message: "Ride not found" });
+    }
+
+    const isDriver = ride.driver._id.toString() === req.user.id;
+
+    const isPassenger = ride.passengers.some(
+      (p) =>
+        p.user?._id?.toString() === req.user.id &&
+        p.status === "accepted"
+    );
+
+    if (!isDriver && !isPassenger) {
+      return res.status(403).json({ message: "Not allowed" });
+    }
+
+    const rideObj = ride.toObject();
+
+    rideObj.passengers = rideObj.passengers.map((p) => {
+      const isCurrentPassenger = p.user?._id?.toString() === req.user.id;
+
+      return {
+        ...p,
+        otp: isCurrentPassenger ? p.otp : undefined,
+      };
+    });
+
+    res.json(rideObj);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch ride details" });
+  }
+});
+
+router.patch("/:rideId/start", auth, async (req, res) => {
+  try {
+    const ride = await Ride.findById(req.params.rideId);
+
+    if (!ride) {
+      return res.status(404).json({ message: "Ride not found" });
+    }
+
+    if (ride.driver.toString() !== req.user.id) {
+      return res.status(403).json({ message: "Only driver can start ride" });
+    }
+
+    ride.status = "driver_started";
+    ride.startedAt = new Date();
+
+    await ride.save();
+
+    req.io.to(`ride_${ride._id}`).emit("ride:started", {
+      rideId: ride._id.toString(),
+    });
+
+    res.json({ message: "Ride started", ride });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to start ride" });
+  }
+});
+
+
+router.patch("/:rideId/passenger/:passengerId/verify-otp", auth, async (req, res) => {
+  try {
+    const { rideId, passengerId } = req.params;
+    const { otp } = req.body;
+
+    const ride = await Ride.findById(rideId);
+
+    if (!ride) {
+      return res.status(404).json({ message: "Ride not found" });
+    }
+
+    if (ride.driver.toString() !== req.user.id) {
+      return res.status(403).json({ message: "Only driver can verify OTP" });
+    }
+
+    const passenger = ride.passengers.id(passengerId);
+
+    if (!passenger) {
+      return res.status(404).json({ message: "Passenger not found" });
+    }
+
+    if (passenger.otp !== otp) {
+      return res.status(400).json({ message: "Invalid OTP" });
+    }
+
+    passenger.otpVerified = true;
+    passenger.pickupConfirmedAt = new Date();
+    ride.status = "in_progress";
+
+    await ride.save();
+
+    req.io.to(`ride_${ride._id}`).emit("ride:passenger-otp-verified", {
+      rideId: ride._id.toString(),
+      passengerId,
+      status: ride.status,
+    });
+
+    res.json({ message: "OTP verified", ride });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to verify OTP" });
+  }
+});
+
+router.patch("/:rideId/complete", auth, async (req, res) => {
+  try {
+    const ride = await Ride.findById(req.params.rideId);
+
+    if (!ride) {
+      return res.status(404).json({ message: "Ride not found" });
+    }
+
+    if (ride.driver.toString() !== req.user.id) {
+      return res.status(403).json({ message: "Only driver can complete ride" });
+    }
+
+    ride.status = "completed";
+    ride.completedAt = new Date();
+
+    await ride.save();
+
+    req.io.to(`ride_${ride._id}`).emit("ride:completed", {
+      rideId: ride._id.toString(),
+    });
+
+    res.json({ message: "Ride completed", ride });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to complete ride" });
+  }
+});
 
 export default router;
